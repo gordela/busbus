@@ -30,7 +30,7 @@ export default function App() {
       // An error occurred!
     }
    }
-   
+  
   useEffect(() => {
     
     (async () => {
@@ -38,11 +38,9 @@ export default function App() {
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
       }
-      let location = await Location.watchPositionAsync({ accuracy: Location.Accuracy.Balanced, timeInterval: 60000, distanceInterval: 50 }, (loc) => {
-        
-        if (haversine({latitude: loc.coords.latitude, longitude:loc.coords.longitude}, end, {threshold: 500, unit: 'meter'})) {playSound()} ;
-       
-        
+      let location = await Location.watchPositionAsync({ accuracy: Location.Accuracy.Balanced, timeInterval: 500, distanceInterval: 0 }, (loc) => {
+        console.log(loc);
+        if (haversine({latitude: loc.coords.latitude, longitude:loc.coords.longitude}, end, {threshold: 100, unit: 'meter'})) {playSound()} ;
         setLocation(loc.coords)});
      
     })();
